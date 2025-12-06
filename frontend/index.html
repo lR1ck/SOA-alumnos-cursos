@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Académico UAV</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Sistema Académico UAV</h1>
+            <p>Universidad Autónoma Veracruzana - Plataforma de Integración</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="alumnos">Gestión de Alumnos</button>
+            <button class="tab-btn" data-tab="cursos">Gestión de Cursos</button>
+        </nav>
+
+        <!-- ==================== SECCIÓN ALUMNOS (SOAP) ==================== -->
+        <section id="alumnos" class="tab-content active">
+            <div class="section-header">
+                <h2>Gestión de Alumnos</h2>
+                <span class="badge soap">SOAP Service</span>
+            </div>
+
+            <div class="cards-container">
+                <!-- Registrar Alumno -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Registrar Alumno</h3>
+                    </div>
+                    <form id="form-registrar-alumno" class="form">
+                        <div class="form-group">
+                            <label for="alumno-matricula">Matrícula</label>
+                            <input type="text" id="alumno-matricula" name="matricula"
+                                   placeholder="Ej: S20024583" required
+                                   pattern="[A-Za-z0-9]{6,20}"
+                                   title="6-20 caracteres alfanuméricos">
+                        </div>
+                        <div class="form-group">
+                            <label for="alumno-nombre">Nombre</label>
+                            <input type="text" id="alumno-nombre" name="nombre"
+                                   placeholder="Ej: Carlos Alberto" required
+                                   minlength="2" maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="alumno-apellido">Apellido</label>
+                            <input type="text" id="alumno-apellido" name="apellido"
+                                   placeholder="Ej: Ramírez Flores" required
+                                   minlength="2" maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="alumno-email">Email</label>
+                            <input type="email" id="alumno-email" name="email"
+                                   placeholder="Ej: carlos.ramirez@uv.mx" required
+                                   maxlength="100">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Registrar Alumno
+                        </button>
+                    </form>
+                    <div id="resultado-registrar-alumno" class="resultado"></div>
+                </div>
+
+                <!-- Consultar Alumno -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Consultar Alumno</h3>
+                    </div>
+                    <form id="form-consultar-alumno" class="form">
+                        <div class="form-group">
+                            <label for="consulta-matricula">Matrícula</label>
+                            <input type="text" id="consulta-matricula" name="matricula"
+                                   placeholder="Ej: S20024583" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">
+                            Consultar Alumno
+                        </button>
+                    </form>
+                    <div id="resultado-consultar-alumno" class="resultado"></div>
+                </div>
+
+                <!-- Eliminar Alumnos -->
+                <div class="card card-full">
+                    <div class="card-header">
+                        <h3>Eliminar Alumnos</h3>
+                        <span class="info-badge">Mínimo 2 matrículas</span>
+                    </div>
+                    <form id="form-eliminar-alumnos" class="form">
+                        <div id="matriculas-container">
+                            <div class="form-group matricula-input">
+                                <label>Matrícula 1</label>
+                                <input type="text" name="matricula[]"
+                                       placeholder="Ej: S20024583" required>
+                            </div>
+                            <div class="form-group matricula-input">
+                                <label>Matrícula 2</label>
+                                <input type="text" name="matricula[]"
+                                       placeholder="Ej: S20024584" required>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="btn-agregar-matricula" class="btn btn-outline">
+                                + Agregar Matrícula
+                            </button>
+                            <button type="submit" class="btn btn-danger">
+                                Eliminar Alumnos
+                            </button>
+                        </div>
+                    </form>
+                    <div id="resultado-eliminar-alumnos" class="resultado"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECCIÓN CURSOS (REST) ==================== -->
+        <section id="cursos" class="tab-content">
+            <div class="section-header">
+                <h2>Gestión de Cursos</h2>
+                <span class="badge rest">REST Service</span>
+            </div>
+
+            <div class="cards-container">
+                <!-- Registrar Curso -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Registrar Curso</h3>
+                    </div>
+                    <form id="form-registrar-curso" class="form">
+                        <div class="form-group">
+                            <label for="curso-nombre">Nombre del Curso</label>
+                            <input type="text" id="curso-nombre" name="nombre"
+                                   placeholder="Ej: Programación Web" required
+                                   maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="curso-descripcion">Descripción</label>
+                            <textarea id="curso-descripcion" name="descripcion"
+                                      placeholder="Descripción del curso..."
+                                      maxlength="500" rows="3"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="curso-fecha">Fecha de Inicio</label>
+                                <input type="date" id="curso-fecha" name="fechaInicio" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="curso-creditos">Créditos</label>
+                                <input type="number" id="curso-creditos" name="creditos"
+                                       min="1" max="10" required placeholder="1-10">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Registrar Curso
+                        </button>
+                    </form>
+                    <div id="resultado-registrar-curso" class="resultado"></div>
+                </div>
+
+                <!-- Buscar Curso -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Buscar Curso</h3>
+                    </div>
+                    <form id="form-buscar-curso" class="form">
+                        <div class="form-group">
+                            <label>Tipo de Búsqueda</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="tipo-busqueda" value="nombre" checked>
+                                    <span>Por Nombre</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="tipo-busqueda" value="fecha">
+                                    <span>Por Fecha</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" id="busqueda-nombre-group">
+                            <label for="busqueda-nombre">Nombre del Curso</label>
+                            <input type="text" id="busqueda-nombre"
+                                   placeholder="Ej: Programación">
+                        </div>
+                        <div class="form-group hidden" id="busqueda-fecha-group">
+                            <label for="busqueda-fecha">Fecha de Inicio</label>
+                            <input type="date" id="busqueda-fecha">
+                        </div>
+                        <button type="submit" class="btn btn-secondary">
+                            Buscar
+                        </button>
+                    </form>
+                    <div id="resultado-buscar-curso" class="resultado"></div>
+                </div>
+
+                <!-- Resultados de Búsqueda y Edición -->
+                <div class="card card-full" id="card-resultados-cursos" style="display: none;">
+                    <div class="card-header">
+                        <h3>Resultados de Búsqueda</h3>
+                    </div>
+                    <div id="tabla-cursos-container">
+                        <table class="tabla-resultados" id="tabla-cursos">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Créditos</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cursos-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Formulario de Edición -->
+                <div class="card card-full" id="card-editar-curso" style="display: none;">
+                    <div class="card-header">
+                        <h3>Editar Curso</h3>
+                        <button type="button" id="btn-cancelar-edicion" class="btn btn-outline btn-sm">
+                            Cancelar
+                        </button>
+                    </div>
+                    <form id="form-editar-curso" class="form">
+                        <input type="hidden" id="editar-curso-id">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editar-nombre">Nombre del Curso</label>
+                                <input type="text" id="editar-nombre" name="nombre"
+                                       required maxlength="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="editar-descripcion">Descripción</label>
+                                <textarea id="editar-descripcion" name="descripcion"
+                                          maxlength="500" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editar-fecha">Fecha de Inicio</label>
+                                <input type="date" id="editar-fecha" name="fechaInicio" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editar-creditos">Créditos</label>
+                                <input type="number" id="editar-creditos" name="creditos"
+                                       min="1" max="10" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editar-activo">Estado</label>
+                                <select id="editar-activo" name="activo">
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Guardar Cambios
+                        </button>
+                    </form>
+                    <div id="resultado-editar-curso" class="resultado"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Sistema Académico UAV - Universidad Autónoma Veracruzana</p>
+        <p class="footer-tech">REST Service: Puerto 10000 | SOAP Service: Puerto 5001</p>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Procesando...</p>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
