@@ -1,0 +1,20 @@
+# Servicio SOAP - Gestión de Alumnos
+# Universidad Autónoma Veracruzana
+# Python 3.x
+
+# Framework web
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# CORS para Flask
+Flask-Cors==4.0.0
+
+# SOAP con Spyne
+spyne==2.14.0
+lxml==5.1.0
+
+# Conector MySQL
+mysql-connector-python==8.2.0
+
+# Utilidades
+pytz==2023.3
